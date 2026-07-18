@@ -92,7 +92,7 @@ if ($missing.Count -ne 0 -and -not $IgnoreAbiCheck) {
 
 Write-Host "还原 bin 目录到 $binDirectory ..."
 New-Item -ItemType Directory -Force -Path $binDirectory | Out-Null
-Copy-Item -Force -LiteralPath (Join-Path $packageBin '*') -Destination $binDirectory -Recurse
+Copy-Item -Force -Path (Join-Path $packageBin '*') -Destination $binDirectory -Recurse
 
 $version = & (Join-Path $binDirectory 'ffmpeg.exe') -version 2>$null |
     Select-Object -First 1
