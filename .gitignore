@@ -1,0 +1,10 @@
+.vs/
+build/
+.downloads/
+vcpkg_installed/
+x64/
+*.user
+*.VC.db
+*.VC.opendb
+.superpowers/
+third_party/ffmpeg/bin/

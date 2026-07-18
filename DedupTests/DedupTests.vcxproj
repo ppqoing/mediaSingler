@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{A846D213-14D2-46D3-B18A-9A78E11BC201}</ProjectGuid>
+    <RootNamespace>DedupTests</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <ProjectRoot>$(MSBuildThisFileDirectory)..\</ProjectRoot>
+    <OutDir>$(ProjectRoot)$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+    <VcpkgEnabled>false</VcpkgEnabled>
+    <VcpkgEnableManifest>false</VcpkgEnableManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VcpkgTriplet Condition="'$(VcpkgTriplet)'==''">x64-windows</VcpkgTriplet>
+    <VcpkgLibDir Condition="'$(Configuration)'=='Debug'">$(ProjectVcpkgInstalledDir)\$(VcpkgTriplet)\debug\lib</VcpkgLibDir>
+    <VcpkgBinDir Condition="'$(Configuration)'=='Debug'">$(ProjectVcpkgInstalledDir)\$(VcpkgTriplet)\debug\bin</VcpkgBinDir>
+    <RocksDbLibrary Condition="'$(Configuration)'=='Debug'">rocksdb-sharedd.lib</RocksDbLibrary>
+    <RocksDbRuntime Condition="'$(Configuration)'=='Debug'">rocksdb-sharedd.dll</RocksDbRuntime>
+    <ZlibRuntime Condition="'$(Configuration)'=='Debug'">zlibd1.dll</ZlibRuntime>
+    <VcpkgLibDir Condition="'$(Configuration)'!='Debug'">$(ProjectVcpkgInstalledDir)\$(VcpkgTriplet)\lib</VcpkgLibDir>
+    <VcpkgBinDir Condition="'$(Configuration)'!='Debug'">$(ProjectVcpkgInstalledDir)\$(VcpkgTriplet)\bin</VcpkgBinDir>
+    <RocksDbLibrary Condition="'$(Configuration)'!='Debug'">rocksdb-shared.lib</RocksDbLibrary>
+    <RocksDbRuntime Condition="'$(Configuration)'!='Debug'">rocksdb-shared.dll</RocksDbRuntime>
+    <ZlibRuntime Condition="'$(Configuration)'!='Debug'">zlib1.dll</ZlibRuntime>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <WarningLevel>Level4</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalOptions>/utf-8 /permissive- %(AdditionalOptions)</AdditionalOptions>
+      <PreprocessorDefinitions>UNICODE;_UNICODE;NOMINMAX;WIN32_LEAN_AND_MEAN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectRoot)DedupCore;$(ProjectRoot)VideoSc;$(ProjectRoot)DiskInfo;$(ProjectVcpkgInstalledDir)\$(VcpkgTriplet)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(VcpkgLibDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(RocksDbLibrary);libmysql.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile><Optimization>Disabled</Optimization><PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions></ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile><Optimization>MaxSpeed</Optimization><PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions></ClCompile>
+    <Link><EnableCOMDATFolding>true</EnableCOMDATFolding><OptimizeReferences>true</OptimizeReferences></Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemDefinitionGroup>
+    <PostBuildEvent>
+      <Command>copy /y "$(VcpkgBinDir)\$(RocksDbRuntime)" "$(OutDir)" &gt;nul
+copy /y "$(VcpkgBinDir)\libmysql.dll" "$(OutDir)" &gt;nul
+copy /y "$(VcpkgBinDir)\$(ZlibRuntime)" "$(OutDir)" &gt;nul
+copy /y "$(VcpkgBinDir)\zstd.dll" "$(OutDir)" &gt;nul
+copy /y "$(VcpkgBinDir)\libssl-3-x64.dll" "$(OutDir)" &gt;nul
+copy /y "$(VcpkgBinDir)\libcrypto-3-x64.dll" "$(OutDir)" &gt;nul
+if exist "$(ProjectRoot)DiskInfo\$(Platform)\$(Configuration)\DiskInfo.dll" copy /y "$(ProjectRoot)DiskInfo\$(Platform)\$(Configuration)\DiskInfo.dll" "$(OutDir)" &gt;nul
+if exist "$(ProjectRoot)third_party\es" (
+  if not exist "$(OutDir)third_party\es" mkdir "$(OutDir)third_party\es"
+  xcopy /d /y "$(ProjectRoot)third_party\es\Everything.exe" "$(OutDir)third_party\es\" &gt;nul 2&gt;&amp;1
+  xcopy /d /y "$(ProjectRoot)third_party\es\Everything.ini" "$(OutDir)third_party\es\" &gt;nul 2&gt;&amp;1
+  xcopy /d /y "$(ProjectRoot)third_party\es\Everything.lng" "$(OutDir)third_party\es\" &gt;nul 2&gt;&amp;1
+  if exist "$(ProjectRoot)third_party\es\Everything.db" xcopy /d /y "$(ProjectRoot)third_party\es\Everything.db" "$(OutDir)third_party\es\" &gt;nul 2&gt;&amp;1
+)
+if exist "$(ProjectRoot)third_party\everything_sdk\Everything64.dll" (
+  if not exist "$(OutDir)third_party\everything_sdk" mkdir "$(OutDir)third_party\everything_sdk"
+  xcopy /d /y "$(ProjectRoot)third_party\everything_sdk\Everything64.dll" "$(OutDir)third_party\everything_sdk\" &gt;nul 2&gt;&amp;1
+)</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DedupCore\DedupCore.vcxproj">
+      <Project>{2a5519a0-7b18-47d6-9a21-52d58c1b9e10}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\VideoSc\VideoSc.vcxproj">
+      <Project>{981fb139-7ea8-40c0-8734-00b41d1dcb3d}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\DiskInfo\DiskInfo.vcxproj">
+      <Project>{c2d3e4f5-6789-4abc-def0-1234567890ab}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets" />
+</Project>

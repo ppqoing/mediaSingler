@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  <PropertyGroup>
+    <!-- 项目统一从指定 vcpkg 根目录读取已安装依赖，避免各工程路径配置漂移。 -->
+    <ProjectVcpkgRoot>E:\vcpkg</ProjectVcpkgRoot>
+    <ProjectVcpkgInstalledDir>$(ProjectVcpkgRoot)\installed</ProjectVcpkgInstalledDir>
+  </PropertyGroup>
+</Project>

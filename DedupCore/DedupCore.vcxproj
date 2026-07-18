@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{2A5519A0-7B18-47D6-9A21-52D58C1B9E10}</ProjectGuid>
+    <RootNamespace>DedupCore</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <ProjectRoot>$(MSBuildThisFileDirectory)..\</ProjectRoot>
+    <OutDir>$(ProjectRoot)$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+    <VcpkgTriplet Condition="'$(VcpkgTriplet)'==''">x64-windows</VcpkgTriplet>
+    <VcpkgEnabled>false</VcpkgEnabled>
+    <VcpkgEnableManifest>false</VcpkgEnableManifest>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <WarningLevel>Level4</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalOptions>/utf-8 /permissive- %(AdditionalOptions)</AdditionalOptions>
+      <PreprocessorDefinitions>UNICODE;_UNICODE;NOMINMAX;WIN32_LEAN_AND_MEAN;ROCKSDB_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectVcpkgInstalledDir)\$(VcpkgTriplet)\include;$(ProjectRoot)VideoSc;$(ProjectRoot)DiskInfo;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Optimization>Disabled</Optimization>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="concurrency\TaskThreadPool.h" />
+    <ClInclude Include="config\AppConfig.h" />
+    <ClInclude Include="config\ConfigValidator.h" />
+    <ClInclude Include="config\DpapiSecretProtector.h" />
+    <ClInclude Include="config\JsonConfigStore.h" />
+    <ClInclude Include="dedup\ExactDuplicateReader.h" />
+    <ClInclude Include="dedup\DHashSimilarity.h" />
+    <ClInclude Include="dedup\PopcountKernel.h" />
+    <ClInclude Include="dedup\PdqCandidateBuilder.h" />
+    <ClInclude Include="dedup\ImageSimilarityRules.h" />
+    <ClInclude Include="dedup\StructuralVerificationCache.h" />
+    <ClInclude Include="dedup\StructuralVerificationScheduler.h" />
+    <ClInclude Include="dedup\DuplicateReportService.h" />
+    <ClInclude Include="dedup\ReportSelectionStore.h" />
+    <ClInclude Include="discovery\NativeFileDiscovery.h" />
+    <ClInclude Include="discovery\EverythingFileDiscovery.h" />
+    <ClInclude Include="deletion\DeletionService.h" />
+    <ClInclude Include="logging\ApplicationErrorLogger.h" />
+    <ClInclude Include="logging\ExecutionLogger.h" />
+    <ClInclude Include="logging\RuntimeLogFeed.h" />
+    <ClInclude Include="logging\ScanErrorLogger.h" />
+    <ClInclude Include="models\CoreModels.h" />
+    <ClInclude Include="models\CoreModelCodec.h" />
+    <ClInclude Include="orchestration\ProgressSnapshot.h" />
+    <ClInclude Include="orchestration\ScanOptions.h" />
+    <ClInclude Include="orchestration\ScanOptionsCodec.h" />
+    <ClInclude Include="orchestration\ScanCoordinator.h" />
+    <ClInclude Include="orchestration\ImageFeatureBackfillCoordinator.h" />
+    <ClInclude Include="orchestration\ScanManifest.h" />
+    <ClInclude Include="persistence\DataVersionCoordinator.h" />
+    <ClInclude Include="persistence\RocksStore.h" />
+    <ClInclude Include="persistence\MySqlClient.h" />
+    <ClInclude Include="persistence\MySqlReadRepository.h" />
+    <ClInclude Include="persistence\ImageFeatureBackfillCheckpointStore.h" />
+    <ClInclude Include="persistence\MySqlBackup.h" />
+    <ClInclude Include="persistence\MySqlSchema.h" />
+    <ClInclude Include="persistence\MySqlSyncService.h" />
+    <ClInclude Include="persistence\ScanCheckpointStore.h" />
+    <ClInclude Include="persistence\SyncOperation.h" />
+    <ClInclude Include="scheduling\DiskHashScheduler.h" />
+    <ClInclude Include="scheduling\FileHasher.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="concurrency\TaskThreadPool.cpp" />
+    <ClCompile Include="config\AppConfig.cpp" />
+    <ClCompile Include="config\ConfigValidator.cpp" />
+    <ClCompile Include="config\DpapiSecretProtector.cpp" />
+    <ClCompile Include="config\JsonConfigStore.cpp" />
+    <ClCompile Include="dedup\ExactDuplicateReader.cpp" />
+    <ClCompile Include="dedup\DHashSimilarity.cpp" />
+    <ClCompile Include="dedup\PopcountKernel.cpp" />
+    <ClCompile Include="dedup\PdqCandidateBuilder.cpp" />
+    <ClCompile Include="dedup\ImageSimilarityRules.cpp" />
+    <ClCompile Include="dedup\StructuralVerificationCache.cpp" />
+    <ClCompile Include="dedup\StructuralVerificationScheduler.cpp" />
+    <ClCompile Include="dedup\DuplicateReportService.cpp" />
+    <ClCompile Include="dedup\ReportSelectionStore.cpp" />
+    <ClCompile Include="discovery\NativeFileDiscovery.cpp" />
+    <ClCompile Include="discovery\EverythingFileDiscovery.cpp" />
+    <ClCompile Include="deletion\DeletionService.cpp" />
+    <ClCompile Include="logging\ApplicationErrorLogger.cpp" />
+    <ClCompile Include="logging\ExecutionLogger.cpp" />
+    <ClCompile Include="logging\RuntimeLogFeed.cpp" />
+    <ClCompile Include="logging\ScanErrorLogger.cpp" />
+    <ClCompile Include="models\CoreModels.cpp" />
+    <ClCompile Include="models\CoreModelCodec.cpp" />
+    <ClCompile Include="orchestration\ScanOptions.cpp" />
+    <ClCompile Include="orchestration\ScanOptionsCodec.cpp" />
+    <ClCompile Include="orchestration\ScanCoordinator.cpp" />
+    <ClCompile Include="orchestration\ImageFeatureBackfillCoordinator.cpp" />
+    <ClCompile Include="orchestration\ScanManifest.cpp" />
+    <ClCompile Include="persistence\DataVersionCoordinator.cpp" />
+    <ClCompile Include="persistence\RocksStore.cpp" />
+    <ClCompile Include="persistence\MySqlClient.cpp" />
+    <ClCompile Include="persistence\MySqlReadRepository.cpp" />
+    <ClCompile Include="persistence\ImageFeatureBackfillCheckpointStore.cpp" />
+    <ClCompile Include="persistence\MySqlBackup.cpp" />
+    <ClCompile Include="persistence\MySqlSchema.cpp" />
+    <ClCompile Include="persistence\MySqlSyncService.cpp" />
+    <ClCompile Include="persistence\ScanCheckpointStore.cpp" />
+    <ClCompile Include="persistence\SyncOperation.cpp" />
+    <ClCompile Include="scheduling\DiskHashScheduler.cpp" />
+    <ClCompile Include="scheduling\FileHasher.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets" />
+</Project>

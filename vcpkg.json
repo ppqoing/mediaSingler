@@ -1,0 +1,12 @@
+{
+  "name": "videosc",
+  "version-string": "0.1.0",
+  "dependencies": [
+    "libmysql",
+    "nlohmann-json",
+    {
+      "name": "rocksdb",
+      "default-features": false
+    }
+  ]
+}
