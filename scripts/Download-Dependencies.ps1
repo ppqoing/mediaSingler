@@ -50,7 +50,7 @@ if (-not (Test-Path -LiteralPath $manifestPath -PathType Leaf)) {
     throw "未找到 vcpkg.json：$manifestPath"
 }
 if (-not (Test-Path -LiteralPath $VcpkgPath -PathType Leaf)) {
-    throw "未找到 vcpkg：$VcpkgPath。请通过 -VcpkgPath 指定实际路径。"
+    throw "未找到 vcpkg：$VcpkgPath。请先运行 Install-VcpkgDependencies.ps1 自动重建 vcpkg，或通过 -VcpkgPath 指定实际路径。"
 }
 if (-not (Test-Path -LiteralPath $assetScript -PathType Leaf)) {
     throw "未找到资产下载脚本：$assetScript"

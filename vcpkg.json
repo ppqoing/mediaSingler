@@ -1,6 +1,7 @@
 {
   "name": "videosc",
   "version-string": "0.1.0",
+  "builtin-baseline": "8e8dfb4ba483886936ded5ca201b500b8d8b0096",
   "dependencies": [
     "libmysql",
     "nlohmann-json",

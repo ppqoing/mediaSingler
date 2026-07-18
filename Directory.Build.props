@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project>
   <PropertyGroup>
-    <!-- 项目统一从指定 vcpkg 根目录读取已安装依赖，避免各工程路径配置漂移。 -->
-    <ProjectVcpkgRoot>E:\vcpkg</ProjectVcpkgRoot>
+    <!-- vcpkg 根目录：可用环境变量或 -p:VIDEOSC_VCPKG_ROOT=... 覆盖，缺省 E:\vcpkg。 -->
+    <ProjectVcpkgRoot Condition="'$(VIDEOSC_VCPKG_ROOT)' != ''">$(VIDEOSC_VCPKG_ROOT)</ProjectVcpkgRoot>
+    <ProjectVcpkgRoot Condition="'$(ProjectVcpkgRoot)' == ''">E:\vcpkg</ProjectVcpkgRoot>
     <ProjectVcpkgInstalledDir>$(ProjectVcpkgRoot)\installed</ProjectVcpkgInstalledDir>
   </PropertyGroup>
 </Project>
